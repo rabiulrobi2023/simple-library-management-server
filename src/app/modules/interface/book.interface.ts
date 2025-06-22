@@ -12,5 +12,5 @@ export interface IBookRegistration {
   isbn: string;
   description: string;
   copies: number;
-  abailable: boolean;
+  available: boolean;
 }

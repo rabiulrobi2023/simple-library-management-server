@@ -40,7 +40,7 @@ const bookRegSchema = new Schema<IBookRegistration>(
       required: [true, "Number of copies is required"],
       min: [1, `Minimum copi must be 1, but you entired {VALUE}`],
     },
-    abailable: {
+    available: {
       type: Boolean,
       default: true,
     },

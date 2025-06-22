@@ -68,7 +68,7 @@ booksRouter.get("/:bookId", async (req: Request, res: Response) => {
     else{
          res.status(404).json({
         success: false,
-        message: "There is no any books",
+        message: "The book is unavailable now",
         data: null,
       });
     }

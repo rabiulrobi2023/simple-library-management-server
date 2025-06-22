@@ -21,7 +21,7 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose_1.default.connect(`${process.env.DB_CONNECTION_URL}`);
-            console.log("You successfully connected to MongoDB with Mongoose!");
+            console.log("Pinged your deployment. You successfully connected to MongoDB with Mongoose!");
             server = app_1.default.listen(port, () => {
                 console.log(`Library management system running on port ${port}`);
             });
@@ -31,3 +31,4 @@ function main() {
         }
     });
 }
+main();

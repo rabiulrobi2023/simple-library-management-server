@@ -1,7 +1,11 @@
 import { model, Schema } from "mongoose";
-import { IBorrowBook } from "../interface/borrowBook.interface";
+import {
+  IBorrowBook,
+  IBorrowBookStatic,
+} from "../interface/borrowBook.interface";
+import { Books } from "./book.model";
 
-const borrowBookSchema = new Schema<IBorrowBook>(
+const borrowBookSchema = new Schema<IBorrowBook, IBorrowBookStatic>(
   {
     book: {
       type: Schema.Types.ObjectId,
@@ -23,4 +27,12 @@ const borrowBookSchema = new Schema<IBorrowBook>(
   }
 );
 
-export const Borrow = model<IBorrowBook>("borrowed-book", borrowBookSchema);
+borrowBookSchema.static("storeStatus", async function (id, remaining) {
+  console.log(id, remaining)
+  if (remaining === 0) {
+    await Books.findOneAndUpdate(id, { available: false });
+  }
+  return null;
+});
+
+export const Borrow = model<IBorrowBook, IBorrowBookStatic>("borrowed-book", borrowBookSchema);
