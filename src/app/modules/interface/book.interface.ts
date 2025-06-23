@@ -1,3 +1,5 @@
+import { Model } from "mongoose";
+
 export interface IBookRegistration {
   title: string;
   author: string;
@@ -13,4 +15,8 @@ export interface IBookRegistration {
   description: string;
   copies: number;
   available: boolean;
+}
+
+export interface IBookStoreStatusStatic extends Model<IBookRegistration> {
+  bookStoreStatusChange(id: string): null;
 }

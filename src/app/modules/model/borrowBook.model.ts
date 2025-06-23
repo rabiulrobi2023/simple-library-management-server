@@ -27,12 +27,15 @@ const borrowBookSchema = new Schema<IBorrowBook, IBorrowBookStatic>(
   }
 );
 
-borrowBookSchema.static("storeStatus", async function (id, remaining) {
-  console.log(id, remaining)
-  if (remaining === 0) {
-    await Books.findOneAndUpdate(id, { available: false });
-  }
-  return null;
+borrowBookSchema.pre("save", async function (next) {
+  const bookFromStore = await Books.findById(this.book);
+  const available = bookFromStore?.copies;
+  const remaining = Number(available) - this.quantity;
+  await Books.findByIdAndUpdate({ _id: this.book }, { copies: remaining });
+  next();
 });
 
-export const Borrow = model<IBorrowBook, IBorrowBookStatic>("borrowed-book", borrowBookSchema);
+export const Borrow = model<IBorrowBook, IBorrowBookStatic>(
+  "borrowed-book",
+  borrowBookSchema
+);

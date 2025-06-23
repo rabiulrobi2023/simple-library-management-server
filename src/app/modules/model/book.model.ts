@@ -1,7 +1,10 @@
 import { model, Schema } from "mongoose";
-import { IBookRegistration } from "../interface/book.interface";
+import {
+  IBookRegistration,
+  IBookStoreStatusStatic,
+} from "../interface/book.interface";
 
-const bookRegSchema = new Schema<IBookRegistration>(
+const bookRegSchema = new Schema<IBookRegistration, IBookStoreStatusStatic>(
   {
     title: {
       type: String,
@@ -29,7 +32,7 @@ const bookRegSchema = new Schema<IBookRegistration>(
     isbn: {
       type: String,
       required: [true, "ISBN number is required"],
-      unique: true,
+      unique: [true, "ISBN number must be unique"],
       trim: true,
     },
     description: {
@@ -50,4 +53,15 @@ const bookRegSchema = new Schema<IBookRegistration>(
   }
 );
 
-export const Books = model<IBookRegistration>("books", bookRegSchema);
+bookRegSchema.static("bookStoreStatusChange", async function (id) {
+  const book = await Books.findById(id);
+
+  if (book?.copies === 0) {
+    await Books.findByIdAndUpdate(id, { available: false });
+  }
+});
+
+export const Books = model<IBookRegistration, IBookStoreStatusStatic>(
+  "books",
+  bookRegSchema
+);
