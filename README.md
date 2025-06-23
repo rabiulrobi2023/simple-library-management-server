@@ -87,12 +87,254 @@
    17. You will get two links. Click one any
    18. Open in browser. Here you can see domon. Click on domain and collect  live link of your project.
        
+## API Details
 
+**Base API:** https://basic-library-management-server.vercel.app/  
+**Local API:** http://localhost:5000/  
 
+**End-Points:**  
 
+------------
+1. Insert Book:  
+   You can insert a book data by using following endpoint   
+   End Point: /api/books  
+   Mathod: POST  
+   Params: NA  
+   Query: Na  
+   Body:  
+       
+        {
+           "title": "The Silent Patient",
+           "author": "World Management",
+           "genre": "FICTION",
+           "isbn": "9781250301668",
+           "description": "A psychological thriller about a woman's act of violence.",
+           "copies": 10,
+           "available": true,
+           "createdAt": "2025-06-01T10:00:00Z",
+           "updatedAt": "2025-06-01T10:00:00Z"
+         }
 
+   Response:
 
+       {
+           "success": true,
+           "message": "Book created successfully",
+           "data": {
+               "title": "The Silent Patient",
+               "author": "World Management",
+               "genre": "FICTION",
+               "isbn": "9781250301668",
+               "description": "A psychological thriller about a woman's act of violence.",
+               "copies": 10,
+               "available": true,
+               "_id": "6858f3627898b27e508d8ce8",
+               "createdAt": "2025-06-01T10:00:00.000Z",
+               "updatedAt": "2025-06-01T10:00:00.000Z",
+               "__v": 0
+           }
+       }
+------------
+2. Get all Book:
+   You can got all books by using following endpoint   
+   End Point: /api/books  
+   Mathod: GET  
+   Params: NA  
+   Query: Optional  
+   Body: NA  
 
+   Response:
+
+       {
+           "success": true,
+           "message": "Books retrieved successfully",
+           "data": [
+               {
+                   "_id": "6858962f31b87928c802ca4c",
+                   "title": "Cosmos",
+                   "author": "Carl Sagan",
+                   "genre": "SCIENCE",
+                   "isbn": "9780345331359",
+                   "description": "Exploring the universe.",
+                   "copies": 1,
+                   "available": true,
+                   "createdAt": "2025-06-17T12:50:00.000Z",
+                   "updatedAt": "2025-06-23T03:28:44.997Z"
+               },
+               {
+                   "_id": "6858962f31b87928c802ca43",
+                   "title": "Educated",
+                   "author": "Tara Westover",
+                   "genre": "BIOGRAPHY",
+                   "isbn": "9780399590504",
+                   "description": "A memoir about growing up off the grid.",
+                   "copies": 3,
+                   "available": true,
+                   "createdAt": "2025-06-08T17:20:00.000Z",
+                   "updatedAt": "2025-06-08T17:20:00.000Z"
+               },
+               ------------------------------------------------------
+               -----------------------------------------------------
+       ]
+------------
+3. Get a Single Book:
+   You can get a specific book by using following endpoint   
+   End Point: /api/books/:bookId  
+   Mathod: GET  
+   Params: Book Id (ObjectId)  
+   Query: NA  
+   Body: NA  
+
+   Response:
+
+       {
+           "success": true,
+           "message": "Book retrieved successfully",
+           "data": {
+               "_id": "6858962f31b87928c802ca4c",
+               "title": "Cosmos",
+               "author": "Carl Sagan",
+               "genre": "SCIENCE",
+               "isbn": "9780345331359",
+               "description": "Exploring the universe.",
+               "copies": 1,
+               "available": true,
+               "createdAt": "2025-06-17T12:50:00.000Z",
+               "updatedAt": "2025-06-23T03:28:44.997Z"
+           }
+       }
+------------
+4. Update a Single Book:  
+   You can update a specific book by using following endpoint   
+   End Point: /api/books/:bookId  
+   Mathod: PUT  
+   Params: Book Id (ObjectId)  
+   Query: NA  
+   Body: As need  
+   
+          {
+           "author": "Subin Sarma",
+           "copies": 12
+          }
+   
+   Response:
+   
+       {
+           "success": true,
+           "message": "Book updated successfully",
+           "data": {
+               "_id": "6858962f31b87928c802ca4c",
+               "title": "Cosmos",
+               "author": "Subin Sarma",
+               "genre": "SCIENCE",
+               "isbn": "9780345331359",
+               "description": "Exploring the universe.",
+               "copies": 12,
+               "available": true,
+               "createdAt": "2025-06-17T12:50:00.000Z",
+               "updatedAt": "2025-06-23T06:46:24.938Z"
+           }
+       }
+------------
+5. Delete a Single Book:  
+   You can delete a specific book by using following endpoint   
+   End Point: /api/books/:bookId  
+   Mathod: DELETE  
+   Params: Book Id (ObjectId)  
+   Query: NA  
+   Body: NA  
+
+   Response:
+
+       {
+           "success": true,
+           "message": "Book deleted successfully",
+           "data": null
+       }
+------------
+6. Borrow a Book:  
+   You can borrow a book data by using following endpoint   
+   End Point: /api/borrow  
+   Mathod: POST  
+   Params: NA  
+   Query: Na  
+   Body:  
+       
+       {
+         "book": "6858962f31b87928c802ca4b",
+         "quantity": 3,
+         "dueDate": "2025-07-18T00:00:00.000Z"
+       }
+
+   Response:
+
+       {
+           "success": true,
+           "message": "Books borrwed successfully",
+           "data": {
+               "book": "6858962f31b87928c802ca4b",
+               "quantity": 3,
+               "dueDate": "2025-07-18T00:00:00.000Z",
+               "_id": "6858fa377898b27e508d8cf3",
+               "createdAt": "2025-06-23T06:54:47.063Z",
+               "updatedAt": "2025-06-23T06:54:47.063Z",
+               "__v": 0
+           }
+       }
+------------
+7. Borrowed Book Summary:  
+   You can see how many copies of a specific book already borrowed by using following endpoint   
+   End Point: /api/borrow  
+   Mathod: GET  
+   Params: NA  
+   Query: NA  
+   Body: NA  
+   
+   Response:
+
+       {
+           "success": true,
+           "message": "Borrowed books summary retrieved successfully",
+           "data": [
+               {
+                   "totalQuantity": 3,
+                   "book": [
+                       {
+                           "title": "Homo Deus",
+                           "isbn": "9780062464316"
+                       }
+                   ]
+               },
+               {
+                   "totalQuantity": 15,
+                   "book": [
+                       {
+                           "title": "The Diary of a Young Girl",
+                           "isbn": "9780553296983"
+                       }
+                   ]
+               },
+               {
+                   "totalQuantity": 4,
+                   "book": [
+                       {
+                           "title": "The Silent Patient",
+                           "isbn": "9781250301697"
+                       }
+                   ]
+               },
+               {
+                   "totalQuantity": 2,
+                   "book": [
+                       {
+                           "title": "Cosmos",
+                           "isbn": "9780345331359"
+                       }
+                   ]
+               }
+           ]
+       }
+------------
 
 
 
